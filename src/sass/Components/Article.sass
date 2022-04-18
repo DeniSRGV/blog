@@ -1,0 +1,100 @@
+.article
+    &-wrapper
+        background-color: #EBEEF3
+        padding: 26px 0 18px
+    &-block-items
+        display: flex
+        margin: 0 auto
+        flex-direction: column
+        align-items: center
+        width: 941px
+    &-item
+        display: flex
+        padding: 15px 14px 15px 19px
+        justify-content: space-between
+        align-items: flex-start
+        background-color: #fff
+        border-radius: 5px
+        margin-bottom: 26px
+        width: 941px
+        min-height: 140px
+        filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15))
+    &-info
+        width: 682px
+        min-height: 45px
+    &-title-block
+        display: flex
+        margin-bottom: 6px
+    &-title
+        cursor: pointer
+        font-size: 20px
+        color: #1890FF
+        font-family: 'Roboto'
+        font-weight: 400
+        line-height: 20px
+        margin-right: 29px
+        a
+            color: #1890FF
+
+    &-like
+        position: relative
+        font-family: 'Inter'
+        font-weight: 400
+        font-size: 12px
+        line-height: 20px
+        color: rgba(0, 0, 0, 0.75)
+        &:before
+            content: ""
+            display: block
+            position: absolute
+            top: 3px
+            left: -21px
+            background-image: url('../../img/heart.svg')
+            width: 16px
+            height: 16px
+    &-container-tag
+        display: flex
+    &-tag
+        display: inline-block
+        text-align: center
+        border: 1px solid rgba(0, 0, 0, 0.5)
+        box-sizing: border-box
+        border-radius: 2px
+        min-width: 38px
+        height: 20px
+        font-family: 'Inter'
+        font-weight: 400
+        font-size: 12px
+        line-height: 17px
+        color: rgba(0, 0, 0, 0.5)
+        margin-right: 5px
+        padding: 0 3px
+    &-text
+        font-family: 'Roboto'
+        font-weight: 400
+        font-size: 12px
+        line-height: 22px
+
+        color: rgba(0, 0, 0, 0.75)
+    &-user
+        display: flex
+    &-name
+        display: flex
+        flex-direction: column
+        font-family: 'Roboto'
+        font-weight: 400
+        font-size: 18px
+        line-height: 28px
+        color: rgba(0, 0, 0, 0.85)
+        margin-right: 12px
+        white-space: nowrap
+        span
+            color: rgba(0, 0, 0, 0.5)
+            font-size: 12px
+            line-height: 12px
+    &-photo
+        width: 46px
+        height: 46px
+        img
+            width: inherit
+            height: inherit

@@ -7,7 +7,9 @@ const Header = () => {
         <Link to="/">Realworld Blog</Link>
       </div>
       <div className="auth">
-        <button className="auth-btn">Sign In</button>
+        <button className="auth-btn">
+          <Link to="/sign-in">Sign In</Link>
+        </button>
         <button className="auth-btn">Sign Up</button>
       </div>
     </header>

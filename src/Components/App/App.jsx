@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 
 import ArticleContainer from '../ArticleContainer/ArticleContainer'
 import Header from '../Header/Header'
+import SignInForm from '../SignInForm/SignInForm'
 import ArticleItem from '../ArticleContainer/ArticleItem/ArticleItem'
 const App = () => {
   const dataArticle = useSelector((state) => state.article)
@@ -23,6 +24,7 @@ const App = () => {
             element={<ArticleContainer dataArticle={dataArticle} />}
           />
           <Route path="/articles/:slug" element={<ArticleItem />} />
+          <Route path="/sign-in" element={<SignInForm />} />
         </Routes>
       </div>
     </Router>

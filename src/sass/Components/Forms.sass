@@ -1,15 +1,13 @@
 .form-container
     width: 384px
     margin: 0 auto
-    min-height: 374px
+    min-height: 362px
     background-color: #FFFFFF
     margin-top: 59px
     border: 1px solid #D9D9D9
     box-sizing: border-box
     box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198), 0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035), 0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802)
     border-radius: 6px
-    // display: flex
-    // flex-direction: column
     padding: 48px 36px 0px
     h2
         font-family: 'Roboto'
@@ -42,7 +40,6 @@
         font-family: 'Roboto'
         font-weight: 400
         font-size: 16px
-        color: #BFBFBF
     .form-btn
         width: 100%
         text-align: center
@@ -56,12 +53,34 @@
         font-family: 'Roboto'
         font-weight: 400
         font-size: 16px
+        cursor: pointer
     .form-descr
         font-family: 'Roboto'
         font-weight: 400
         font-size: 12px
-        line-height: 13px
-
+        line-height: 20px
+        margin-bottom: 48px
         text-align: center
-
         color: #8C8C8C
+    .input-error
+        border: 1px solid #F5222D
+    .wrapp-agree
+        flex-direction: row
+        input
+            width: initial
+            height: initial
+
+    .form-agree
+        font-family: 'Roboto'
+        font-weight: 400
+        font-size: 14px
+        line-height: 15px
+        color: #595959
+        margin-left: 9px
+        margin-bottom: 21px
+.router-link
+    color: #1890FF
+    &:hover
+        color: #56bfe2
+.btn-edit
+    margin-bottom: 48px !important

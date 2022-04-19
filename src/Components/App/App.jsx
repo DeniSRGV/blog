@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux'
 import ArticleContainer from '../ArticleContainer/ArticleContainer'
 import Header from '../Header/Header'
 import SignInForm from '../SignInForm/SignInForm'
+import SignUnForm from '../SignUpForm.jsx/SignUpForm'
+import EditProfileForm from '../EditProfileForm/EditProfileForm'
 import ArticleItem from '../ArticleContainer/ArticleItem/ArticleItem'
 const App = () => {
   const dataArticle = useSelector((state) => state.article)
@@ -25,6 +27,8 @@ const App = () => {
           />
           <Route path="/articles/:slug" element={<ArticleItem />} />
           <Route path="/sign-in" element={<SignInForm />} />
+          <Route path="/sign-up" element={<SignUnForm />} />
+          <Route path="/profile" element={<EditProfileForm />} />
         </Routes>
       </div>
     </Router>

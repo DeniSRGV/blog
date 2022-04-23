@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
+import { useSubmit } from '../../hooks/useSubmit'
 const SignInForm = () => {
+  const { errorServer, submitForm } = useSubmit()
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -11,11 +15,15 @@ const SignInForm = () => {
   } = useForm({
     mode: 'onBlur'
   })
+  const subF = (data) => {
+    submitForm('authUser', data, navigate, reset)
+  }
+
   return (
     <div className="article-wrapper">
       <div className="form-container">
         <h2>Sign In</h2>
-        <form>
+        <form onSubmit={handleSubmit(subF)}>
           <div className="form-wrapp">
             <label>Email address</label>
             <input
@@ -55,10 +63,16 @@ const SignInForm = () => {
               </p>
             )}
           </div>
-
-          <div className="form-btn">Login</div>
+          {errorServer && (
+            <p style={{ color: 'red', marginBottom: '0' }}>
+              Incorrect username or password.
+            </p>
+          )}
+          <button className="form-btn" type="submit" name="submit">
+            Login
+          </button>
           <div className="form-descr">
-            Don’t have an account? <Link to="/sign-up">Sign Up.</Link>
+            Don&apos;t have an account? <Link to="/sign-up">Sign Up.</Link>
           </div>
         </form>
       </div>

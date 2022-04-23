@@ -1,7 +1,13 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { useSubmit } from '../../hooks/useSubmit'
+
 const SignUnForm = () => {
+  const navigate = useNavigate()
+  const { errorServer, submitForm } = useSubmit()
+
   const {
     register,
     watch,
@@ -13,18 +19,20 @@ const SignUnForm = () => {
   })
   const password = useRef()
   password.current = watch('password')
+  const onSubmit = (data) =>
+    submitForm('registerNewUser', data, navigate, reset)
   return (
     <div className="article-wrapper">
       <div className="form-container">
         <h2>Create new account</h2>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-wrapp">
             <label>Username</label>
             <input
               className={`form-input ${errors.user && 'input-error'}`}
               type="text"
               placeholder="Username"
-              {...register('user', {
+              {...register('username', {
                 required: true,
                 minLength: 3,
                 maxLength: 20
@@ -43,7 +51,7 @@ const SignUnForm = () => {
             )}
             {errors.user && errors.user.type === 'maxLength' && (
               <p style={{ color: 'red', marginBottom: '0' }}>
-                MAx length 20 characters
+                Max length 20 characters
               </p>
             )}
           </div>
@@ -118,6 +126,7 @@ const SignUnForm = () => {
             <input
               className={`form-input ${errors.agree && 'input-error'}`}
               type="checkbox"
+              defaultChecked
               {...register('agree', {
                 required: true
               })}
@@ -132,8 +141,14 @@ const SignUnForm = () => {
               </p>
             )}
           </div>
-
-          <div className="form-btn">Create</div>
+          {errorServer && (
+            <p style={{ color: 'red', marginBottom: '0', fontSize: '11px' }}>
+              Error server, try it again
+            </p>
+          )}
+          <button className="form-btn" type="submit" name="submit">
+            Create
+          </button>
           <div className="form-descr ">
             Already have an account?
             <Link className="router-link" to="/sign-in">

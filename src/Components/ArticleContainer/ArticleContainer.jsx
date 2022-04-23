@@ -12,7 +12,6 @@ const ArticleContainer = ({ dataArticle }) => {
   const dispatch = useDispatch()
   const { data, articlesCount, isLoaded } = dataArticle
   const [page, setPage] = useState(1)
-  console.log(data)
   useEffect(() => {
     dispatch(getArticles(page))
   }, [dispatch, page])

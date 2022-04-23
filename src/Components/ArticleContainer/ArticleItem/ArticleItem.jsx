@@ -36,12 +36,14 @@ const ArticleItem = () => {
                   </div>
                 ))}
             </div>
-            <div className="article-text">{data.description}</div>
-            <div className="article-text">{data.body}</div>
+            <div className="article-text">
+              {data.description && data.description}
+            </div>
+            <div className="article-text">{data.body && data.body}</div>
           </div>
           <div className="article-user">
             <div className="article-name">
-              {data.author.username}
+              {data.author && data.author.username}
               <span>{sortTime(data.createdAt)}</span>
             </div>
             <div className="article-photo">

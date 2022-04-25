@@ -13,6 +13,8 @@ import SignInForm from '../SignInForm/SignInForm'
 import SignUnForm from '../SignUpForm.jsx/SignUpForm'
 import EditProfileForm from '../EditProfileForm/EditProfileForm'
 import ArticleItem from '../ArticleContainer/ArticleItem/ArticleItem'
+// import NewArticleContainer from '../NewArticle/NewArticleContainer'
+import NewArticle from '../NewArticle/NewArticle'
 const App = () => {
   const dataArticle = useSelector((state) => state.article)
   return (
@@ -29,6 +31,7 @@ const App = () => {
           <Route path="/sign-in" element={<SignInForm />} />
           <Route path="/sign-up" element={<SignUnForm />} />
           <Route path="/profile" element={<EditProfileForm />} />
+          <Route path="/new-article" element={<NewArticle />} />
         </Routes>
       </div>
     </Router>

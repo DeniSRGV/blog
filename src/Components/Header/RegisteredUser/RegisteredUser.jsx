@@ -16,7 +16,9 @@ const RegisteredUser = ({ userObj }) => {
   return (
     <div className="user-block">
       <div className="auth">
-        <button className="auth-btn auth-btn-create">Create article</button>
+        <Link to="/new-article">
+          <button className="auth-btn auth-btn-create">Create article</button>
+        </Link>
         <Link to="/profile" style={{ display: 'inherit' }}>
           <div className="user-name">{username}</div>
           <div className="article-photo user-photo">

@@ -47,5 +47,17 @@ class ServiceApi {
     })
     return res.json()
   }
+  // creating a new article
+  async createNewArticle(data, token) {
+    const res = await fetch(`${this.URL}/articles`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Token ${token}`
+      },
+      body: JSON.stringify({ article: data })
+    })
+    return res.json()
+  }
 }
 export default ServiceApi

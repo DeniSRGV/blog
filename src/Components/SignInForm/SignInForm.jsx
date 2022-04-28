@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useSubmit } from '../../hooks/useSubmit'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 const SignInForm = () => {
   const { errorServer, submitForm } = useSubmit()
   const navigate = useNavigate()
@@ -38,12 +39,7 @@ const SignInForm = () => {
                 }
               })}
             />
-
-            {errors.email && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                {errors.email.message}
-              </p>
-            )}
+            <ErrorMessage errors={errors} type={'email'} />
           </div>
           <div className="form-wrapp">
             <label>Password</label>
@@ -53,15 +49,17 @@ const SignInForm = () => {
               placeholder="Password"
               {...register('password', {
                 required: true,
-                minLength: 6,
-                maxLength: 40
+                minLength: {
+                  value: 6,
+                  message: 'Min length 6 characters'
+                },
+                maxLength: {
+                  value: 40,
+                  message: 'Incorrect username or password.'
+                }
               })}
             />
-            {errors.password && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                Min length 6 characters
-              </p>
-            )}
+            <ErrorMessage errors={errors} type={'password'} />
           </div>
           {errorServer && (
             <p style={{ color: 'red', marginBottom: '0' }}>

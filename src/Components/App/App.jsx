@@ -10,11 +10,12 @@ import { useSelector } from 'react-redux'
 import ArticleContainer from '../ArticleContainer/ArticleContainer'
 import Header from '../Header/Header'
 import SignInForm from '../SignInForm/SignInForm'
+import Page404 from '../404/404'
 import SignUnForm from '../SignUpForm.jsx/SignUpForm'
 import EditProfileForm from '../EditProfileForm/EditProfileForm'
 import ArticleItem from '../ArticleContainer/ArticleItem/ArticleItem'
-// import NewArticleContainer from '../NewArticle/NewArticleContainer'
-import NewArticle from '../NewArticle/NewArticle'
+import CreateNewArticleContainer from '../ArticleContainer/CreateNewArticleContainer/CreateNewArticleContainer'
+import EditArticleContainer from '../ArticleContainer/EditArticleContainer/EditArticleContainer'
 const App = () => {
   const dataArticle = useSelector((state) => state.article)
   return (
@@ -31,7 +32,12 @@ const App = () => {
           <Route path="/sign-in" element={<SignInForm />} />
           <Route path="/sign-up" element={<SignUnForm />} />
           <Route path="/profile" element={<EditProfileForm />} />
-          <Route path="/new-article" element={<NewArticle />} />
+          <Route path="/new-article" element={<CreateNewArticleContainer />} />
+          <Route
+            path="/articles/:slug/edit"
+            element={<EditArticleContainer />}
+          />
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </div>
     </Router>

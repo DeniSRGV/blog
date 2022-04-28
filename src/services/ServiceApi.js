@@ -59,5 +59,29 @@ class ServiceApi {
     })
     return res.json()
   }
+  //article editing
+  async editArticle(data, slug, token) {
+    const res = await fetch(`${this.URL}/articles/${slug}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Token ${token}`
+      },
+      body: JSON.stringify({ article: data })
+    })
+    return res.json()
+  }
+
+  //deleting an article
+  async deleteArticle(slug, token) {
+    const res = await fetch(`${this.URL}/articles/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Token ${token}`
+      }
+    })
+    return res.json()
+  }
 }
 export default ServiceApi

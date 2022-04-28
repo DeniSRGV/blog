@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import ServiceApi from '../../services/ServiceApi'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import { setUser } from '../../redux/actions/authActions'
 const EditProfileForm = () => {
   const serviceApi = new ServiceApi()
@@ -24,6 +25,7 @@ const EditProfileForm = () => {
     serviceApi.updateUser(data, token).then((res) => {
       if (res.user) {
         dispatch(setUser(res.user))
+        localStorage.setItem('user', JSON.stringify(res.user))
         navigate('/')
       }
       if (res.errors) {
@@ -40,32 +42,23 @@ const EditProfileForm = () => {
           <div className="form-wrapp">
             <label>Username</label>
             <input
-              className={`form-input ${errors.user && 'input-error'}`}
+              className={`form-input ${errors.username && 'input-error'}`}
               type="text"
               placeholder="Username"
               defaultValue={username}
-              {...register('user', {
-                required: true,
-                minLength: 3,
-                maxLength: 20
+              {...register('username', {
+                required: 'This is required',
+                minLength: {
+                  value: 6,
+                  message: 'Min length 6 characters'
+                },
+                maxLength: {
+                  value: 20,
+                  message: 'Max length 20 characters'
+                }
               })}
             />
-
-            {errors.user && errors.user.type === 'required' && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                This is required
-              </p>
-            )}
-            {errors.user && errors.user.type === 'minLength' && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                Min length 6 characters
-              </p>
-            )}
-            {errors.user && errors.user.type === 'maxLength' && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                MAx length 20 characters
-              </p>
-            )}
+            <ErrorMessage errors={errors} type={'username'} />
           </div>
           <div className="form-wrapp">
             <label>Email address</label>
@@ -82,12 +75,7 @@ const EditProfileForm = () => {
                 }
               })}
             />
-
-            {errors.email && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                {errors.email.message}
-              </p>
-            )}
+            <ErrorMessage errors={errors} type={'email'} />
           </div>
           <div className="form-wrapp">
             <label>New Password</label>
@@ -96,16 +84,19 @@ const EditProfileForm = () => {
               type="password"
               placeholder="New password"
               {...register('password', {
-                required: true,
-                minLength: 6,
-                maxLength: 40
+                required: 'This is required',
+                minLength: {
+                  value: 6,
+                  message: 'Your password needs to be at least 6 characters.'
+                },
+                maxLength: {
+                  value: 40,
+                  message:
+                    'Your password must be no more than 40 characters long.'
+                }
               })}
             />
-            {errors.password && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                Min length 6 characters
-              </p>
-            )}
+            <ErrorMessage errors={errors} type={'password'} />
           </div>
           <div className="form-wrapp">
             <label>Avatar image (url)</label>
@@ -117,13 +108,12 @@ const EditProfileForm = () => {
               {...register('image', {
                 pattern: {
                   value:
-                    /(http?|https?):\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/gi
+                    /(http?|https?):\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/gi,
+                  message: 'Invalid URL'
                 }
               })}
             />
-            {errors.image && (
-              <p style={{ color: 'red', marginBottom: '0' }}>Invalid URL</p>
-            )}
+            <ErrorMessage errors={errors} type={'image'} />
           </div>
           {errorServer && (
             <p style={{ color: 'red', marginBottom: '0' }}>

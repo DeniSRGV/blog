@@ -37,3 +37,10 @@ export const getArticleItem = (slug) => (dispatch) => {
     })
     .catch((e) => console.log('error res  ' + e))
 }
+//delete article
+export const deleteArticleItem = (slug, token) => (dispatch) => {
+  const apiService = new ServiceApi()
+  dispatch(loading(true))
+  apiService.deleteArticle(slug, token)
+  dispatch(loading(false))
+}

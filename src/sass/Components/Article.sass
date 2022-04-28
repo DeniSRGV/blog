@@ -79,6 +79,7 @@
         color: rgba(0, 0, 0, 0.75)
     &-user
         display: flex
+        margin-bottom: 30px
     &-name
         display: flex
         flex-direction: column
@@ -99,3 +100,52 @@
         img
             width: inherit
             height: inherit
+    &-right-block
+        display: flex
+        flex-direction: column
+        align-items: flex-end
+.modal
+    &-message
+        padding: 12px 16px
+        background: #ffff
+        border-radius: 4px
+        left: 84px
+        position: absolute
+        width: 240px
+        height: 104px
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15))
+        &::before
+            position: absolute
+            width: 12px
+            height: 12px
+            left: -4px
+            background-color: #fff
+            content: " "
+            transform: rotate(45deg)
+    &-text
+        position: relative
+        margin-left: 24px
+        font-family: 'Roboto'
+        font-weight: 400
+        font-size: 14px
+        line-height: 22px
+        color: #595959
+        &::before
+            position: absolute
+            left: -23px
+            top: 3px
+            text-align: center
+            font-size: 12px
+            line-height: 15px
+            border-radius: 50%
+            background: #FAAD14
+            color: #ffff
+            content: '!'
+            width: 14px
+            height: 14px
+    &-btns
+        display: flex
+        justify-content: flex-end

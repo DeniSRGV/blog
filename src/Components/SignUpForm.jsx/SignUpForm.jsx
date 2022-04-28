@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useSubmit } from '../../hooks/useSubmit'
-
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 const SignUnForm = () => {
   const navigate = useNavigate()
   const { errorServer, submitForm } = useSubmit()
@@ -33,27 +33,18 @@ const SignUnForm = () => {
               type="text"
               placeholder="Username"
               {...register('username', {
-                required: true,
-                minLength: 3,
-                maxLength: 20
+                required: 'This is required',
+                minLength: {
+                  value: 6,
+                  message: 'Min length 6 characters'
+                },
+                maxLength: {
+                  value: 20,
+                  message: 'Max length 20 characters'
+                }
               })}
             />
-
-            {errors.user && errors.user.type === 'required' && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                This is required
-              </p>
-            )}
-            {errors.user && errors.user.type === 'minLength' && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                Min length 6 characters
-              </p>
-            )}
-            {errors.user && errors.user.type === 'maxLength' && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                Max length 20 characters
-              </p>
-            )}
+            <ErrorMessage errors={errors} type={'username'} />
           </div>
           <div className="form-wrapp">
             <label>Email address</label>
@@ -69,12 +60,7 @@ const SignUnForm = () => {
                 }
               })}
             />
-
-            {errors.email && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                {errors.email.message}
-              </p>
-            )}
+            <ErrorMessage errors={errors} type={'email'} />
           </div>
           <div className="form-wrapp">
             <label>Password</label>
@@ -83,27 +69,19 @@ const SignUnForm = () => {
               type="password"
               placeholder="Password"
               {...register('password', {
-                required: true,
-                minLength: 6,
-                maxLength: 40
+                required: 'This is required',
+                minLength: {
+                  value: 6,
+                  message: 'Your password needs to be at least 6 characters.'
+                },
+                maxLength: {
+                  value: 40,
+                  message:
+                    'Your password must be no more than 40 characters long.'
+                }
               })}
             />
-
-            {errors.password && errors.password.type === 'required' && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                This is required
-              </p>
-            )}
-            {errors.password && errors.password.type === 'minLength' && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                Your password needs to be at least 6 characters.
-              </p>
-            )}
-            {errors.password && errors.password.type === 'maxLength' && (
-              <p style={{ color: 'red', marginBottom: '0' }}>
-                Your password must be no more than 40 characters long.
-              </p>
-            )}
+            <ErrorMessage errors={errors} type={'password'} />
           </div>
           <div className="form-wrapp ">
             <label>Repeat Password</label>
@@ -128,18 +106,14 @@ const SignUnForm = () => {
               type="checkbox"
               defaultChecked
               {...register('agree', {
-                required: true
+                required: 'This is required'
               })}
             />
 
             <span className="form-agree">
               I agree to the processing of my personal information
             </span>
-            {errors.agree && (
-              <p style={{ color: 'red', marginBottom: '0', fontSize: '11px' }}>
-                This is required
-              </p>
-            )}
+            <ErrorMessage errors={errors} type={'agree'} />
           </div>
           {errorServer && (
             <p style={{ color: 'red', marginBottom: '0', fontSize: '11px' }}>

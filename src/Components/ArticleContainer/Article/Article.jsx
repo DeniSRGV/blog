@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { sortTime } from '../../../utils/utils'
 import Avatar from '../../../img/user-logo.png'
+import Likes from '../../Likes/Likes'
 
 const Article = ({ article }) => {
   return (
@@ -14,7 +15,11 @@ const Article = ({ article }) => {
             <div className="article-title">
               <Link to={`/articles/${article.slug}`}>{article.title}</Link>
             </div>
-            <div className="article-like">{article.favoritesCount}</div>
+            <Likes
+              favoritesCount={article.favoritesCount}
+              slug={article.slug}
+              isLike={article.favorited}
+            />
           </div>
           <div className="article-container-tag">
             {article.tagList &&

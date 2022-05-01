@@ -4,6 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
 import Spinner from '../../Spinner/Spinner'
+import Likes from '../../Likes/Likes'
 import {
   getArticleItem,
   deleteArticleItem
@@ -36,7 +37,11 @@ const ArticleItem = () => {
               <div className="article-title">
                 <Link to={'/articles/'}>{data.title}</Link>
               </div>
-              <div className="article-like">{data.favoritesCount}</div>
+              <Likes
+                favoritesCount={data.favoritesCount}
+                slug={slug}
+                isLike={data.favorited}
+              />
             </div>
             <div className="article-container-tag">
               {data.tagList &&

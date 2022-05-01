@@ -38,21 +38,23 @@
             color: #1890FF
 
     &-like
+
         position: relative
         font-family: 'Inter'
         font-weight: 400
         font-size: 12px
         line-height: 20px
         color: rgba(0, 0, 0, 0.75)
-        &:before
-            content: ""
-            display: block
-            position: absolute
-            top: 3px
-            left: -21px
-            background-image: url('../../img/heart.svg')
-            width: 16px
-            height: 16px
+        display: block
+        button
+            background-color: #fff
+            border: none
+        .heart-like
+            cursor: pointer
+
+            transform: translate(-4px, 3px)
+            fill: #F5222D
+
     &-container-tag
         display: flex
     &-tag

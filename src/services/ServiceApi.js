@@ -83,5 +83,26 @@ class ServiceApi {
     })
     return res.json()
   }
+  async likeArticle(token, slug) {
+    const res = await fetch(`${this.URL}/articles/${slug}/favorite`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Token ${token}`
+      }
+    })
+    return res.json()
+  }
+
+  async dislikeArticle(token, slug) {
+    const res = await fetch(`${this.URL}/articles/${slug}/favorite`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Token ${token}`
+      }
+    })
+    return res.json()
+  }
 }
 export default ServiceApi

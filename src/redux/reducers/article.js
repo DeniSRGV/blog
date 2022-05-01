@@ -22,6 +22,13 @@ const articleReducer = (state = initialState, action) => {
         ...state,
         artItem: action.payload.article
       }
+    case 'FAVORITE_ARTICLE':
+      return {
+        ...state,
+        data: state.data.map((item) =>
+          item.slug === action.payload.slug ? action.payload : item
+        )
+      }
     default:
       return state
   }

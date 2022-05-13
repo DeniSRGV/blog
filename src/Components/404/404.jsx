@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import img from './error.gif'
+import img from '../../img/error.gif'
 const Page404 = () => {
   return (
     <div>

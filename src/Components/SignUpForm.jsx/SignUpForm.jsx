@@ -1,26 +1,26 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useSubmit } from '../../hooks/useSubmit'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
+import load from '../../img/three-dots.svg'
+
 const SignUnForm = () => {
   const navigate = useNavigate()
   const { errorServer, submitForm } = useSubmit()
+  const [dis, setDis] = useState(false)
 
-  const {
-    register,
-    watch,
-    handleSubmit,
-    reset,
-    formState: { errors }
-  } = useForm({
+  const { register, watch, handleSubmit, formState } = useForm({
     mode: 'onBlur'
   })
+  const { errors, isSubmitting } = formState
+  useEffect(() => {
+    isSubmitting ? setDis(true) : setTimeout(() => setDis(false), 10)
+  }, [isSubmitting])
   const password = useRef()
   password.current = watch('password')
-  const onSubmit = (data) =>
-    submitForm('registerNewUser', data, navigate, reset)
+  const onSubmit = (data) => submitForm('registerNewUser', data, navigate)
   return (
     <div className="article-wrapper">
       <div className="form-container">
@@ -31,6 +31,7 @@ const SignUnForm = () => {
             <input
               className={`form-input ${errors.user && 'input-error'}`}
               type="text"
+              autoFocus={true}
               placeholder="Username"
               {...register('username', {
                 required: 'This is required',
@@ -55,7 +56,8 @@ const SignUnForm = () => {
               {...register('email', {
                 required: 'This field is required!',
                 pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9]+\.[A-Z]{2,4}$/i,
+                  value:
+                    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/gi,
                   message: 'Invalid email'
                 }
               })}
@@ -120,7 +122,13 @@ const SignUnForm = () => {
               Error server, try it again
             </p>
           )}
-          <button className="form-btn" type="submit" name="submit">
+          <button
+            className="form-btn"
+            type="submit"
+            name="submit"
+            style={dis ? { cursor: 'default', background: '#1f74c3' } : null}
+            disabled={dis}
+          >
             Create
           </button>
           <div className="form-descr ">
@@ -128,6 +136,9 @@ const SignUnForm = () => {
             <Link className="router-link" to="/sign-in">
               Sign In.
             </Link>
+            {dis ? (
+              <img className="submitting" src={load} alt="loading" />
+            ) : null}
           </div>
         </form>
       </div>

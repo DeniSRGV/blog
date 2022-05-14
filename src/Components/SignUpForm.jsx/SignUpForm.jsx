@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -8,16 +8,13 @@ import load from '../../img/three-dots.svg'
 
 const SignUnForm = () => {
   const navigate = useNavigate()
-  const { errorServer, submitForm } = useSubmit()
-  const [dis, setDis] = useState(false)
+  const { disableBtn, errorServer, submitForm } = useSubmit()
 
   const { register, watch, handleSubmit, formState } = useForm({
     mode: 'onBlur'
   })
-  const { errors, isSubmitting } = formState
-  useEffect(() => {
-    isSubmitting ? setDis(true) : setTimeout(() => setDis(false), 10)
-  }, [isSubmitting])
+  const { errors } = formState
+
   const password = useRef()
   password.current = watch('password')
   const onSubmit = (data) => submitForm('registerNewUser', data, navigate)
@@ -126,8 +123,10 @@ const SignUnForm = () => {
             className="form-btn"
             type="submit"
             name="submit"
-            style={dis ? { cursor: 'default', background: '#1f74c3' } : null}
-            disabled={dis}
+            style={
+              disableBtn ? { cursor: 'default', background: '#1f74c3' } : null
+            }
+            disabled={disableBtn}
           >
             Create
           </button>
@@ -136,7 +135,7 @@ const SignUnForm = () => {
             <Link className="router-link" to="/sign-in">
               Sign In.
             </Link>
-            {dis ? (
+            {disableBtn ? (
               <img className="submitting" src={load} alt="loading" />
             ) : null}
           </div>

@@ -6,17 +6,15 @@ import { useSubmit } from '../../hooks/useSubmit'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import load from '../../img/three-dots.svg'
 const SignInForm = () => {
-  const [dis, setDis] = useState(false)
-  const { errorServer, submitForm } = useSubmit()
+  const { disableBtn, errorServer, submitForm } = useSubmit()
+
   const navigate = useNavigate()
 
   const { register, handleSubmit, formState } = useForm({
     mode: 'onBlur'
   })
-  const { errors, isSubmitting } = formState
-  useEffect(() => {
-    isSubmitting ? setDis(true) : setTimeout(() => setDis(false), 10)
-  }, [isSubmitting])
+  const { errors } = formState
+
   const subF = (data) => {
     submitForm('authUser', data, navigate)
   }
@@ -72,14 +70,16 @@ const SignInForm = () => {
             className="form-btn"
             type="submit"
             name="submit"
-            style={dis ? { cursor: 'default', background: '#1f74c3' } : null}
-            disabled={dis}
+            style={
+              disableBtn ? { cursor: 'default', background: '#1f74c3' } : null
+            }
+            disabled={disableBtn}
           >
             Login
           </button>
           <div className="form-descr">
             Don&apos;t have an account? <Link to="/sign-up">Sign Up.</Link>
-            {dis ? (
+            {disableBtn ? (
               <img className="submitting" src={load} alt="loading" />
             ) : null}
           </div>

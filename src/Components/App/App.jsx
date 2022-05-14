@@ -6,7 +6,7 @@ import {
   Navigate
 } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Offline, Online, Detector } from 'react-detect-offline'
+import { Offline, Online } from 'react-detect-offline'
 
 import ArticleContainer from '../ArticleContainer/ArticleContainer'
 import Header from '../Header/Header'

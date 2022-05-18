@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
+import classnames from 'classnames'
 
 import { useSubmit } from '../../hooks/useSubmit'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
@@ -8,7 +9,14 @@ import load from '../../img/three-dots.svg'
 
 const SignUnForm = () => {
   const navigate = useNavigate()
-  const { disableBtn, errorServer, submitForm } = useSubmit()
+  const {
+    disableBtn,
+    submitForm,
+    nameError,
+    emailError,
+    setEmailError,
+    setNameError
+  } = useSubmit()
 
   const { register, watch, handleSubmit, formState } = useForm({
     mode: 'onBlur'
@@ -18,22 +26,32 @@ const SignUnForm = () => {
   const password = useRef()
   password.current = watch('password')
   const onSubmit = (data) => submitForm('registerNewUser', data, navigate)
+
+  const formBtn = classnames({
+    'form-btn': true,
+    'form-btn-dis': disableBtn
+  })
   return (
     <div className="article-wrapper">
       <div className="form-container">
         <h2>Create new account</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-wrapp">
-            <label>Username</label>
+            <label className={nameError && 'error-label'}>
+              Username {nameError && `${nameError}`}
+            </label>
             <input
-              className={`form-input ${errors.user && 'input-error'}`}
+              className={`form-input ${
+                (errors.username || nameError) && 'input-error'
+              }`}
               type="text"
               autoFocus={true}
               placeholder="Username"
+              onFocus={() => setNameError('')}
               {...register('username', {
                 required: 'This is required',
                 minLength: {
-                  value: 6,
+                  value: 2,
                   message: 'Min length 6 characters'
                 },
                 maxLength: {
@@ -45,11 +63,16 @@ const SignUnForm = () => {
             <ErrorMessage errors={errors} type={'username'} />
           </div>
           <div className="form-wrapp">
-            <label>Email address</label>
+            <label className={emailError && 'error-label'}>
+              Email address {emailError && `${emailError}`}
+            </label>
             <input
-              className={`form-input ${errors.email && 'input-error'}`}
+              className={`form-input ${
+                (errors.email || emailError) && 'input-error'
+              }`}
               type="text"
               placeholder="Email address"
+              onFocus={() => setEmailError('')}
               {...register('email', {
                 required: 'This field is required!',
                 pattern: {
@@ -114,18 +137,11 @@ const SignUnForm = () => {
             </span>
             <ErrorMessage errors={errors} type={'agree'} />
           </div>
-          {errorServer && (
-            <p style={{ color: 'red', marginBottom: '0', fontSize: '11px' }}>
-              Error server, try it again
-            </p>
-          )}
+
           <button
-            className="form-btn"
+            className={formBtn}
             type="submit"
             name="submit"
-            style={
-              disableBtn ? { cursor: 'default', background: '#1f74c3' } : null
-            }
             disabled={disableBtn}
           >
             Create

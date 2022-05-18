@@ -5,7 +5,7 @@ import {
   unfavoritesArticle,
   favoritesArticle
 } from '../../redux/actions/articleActions'
-const Likes = ({ favoritesCount, slug, isLike }) => {
+const Likes = ({ favoritesCount, slug, isLike, artAll }) => {
   const dispatch = useDispatch()
 
   const [likeAct, setlikeAct] = useState(true)
@@ -15,11 +15,12 @@ const Likes = ({ favoritesCount, slug, isLike }) => {
   useEffect(() => {
     isLogin ? setlikeAct(false) : null
   }, [isLogin])
+
   const favoriteA = () => {
-    dispatch(favoritesArticle(token, slug))
+    dispatch(favoritesArticle(token, slug, artAll))
   }
   const unfavoriteA = () => {
-    dispatch(unfavoritesArticle(token, slug))
+    dispatch(unfavoritesArticle(token, slug, artAll))
   }
 
   return (

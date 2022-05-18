@@ -19,6 +19,7 @@ const Article = ({ article }) => {
               favoritesCount={article.favoritesCount}
               slug={article.slug}
               isLike={article.favorited}
+              artAll={true}
             />
           </div>
           <div className="article-container-tag">

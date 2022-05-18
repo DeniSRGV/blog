@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
+import classnames from 'classnames'
 
 import { useSubmit } from '../../hooks/useSubmit'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import load from '../../img/three-dots.svg'
 const SignInForm = () => {
-  const { disableBtn, errorServer, submitForm } = useSubmit()
+  const { disableBtn, errorServer, submitForm, setErrorServer } = useSubmit()
 
   const navigate = useNavigate()
-
+  console.log('render')
   const { register, handleSubmit, formState } = useForm({
     mode: 'onBlur'
   })
@@ -18,6 +19,11 @@ const SignInForm = () => {
   const subF = (data) => {
     submitForm('authUser', data, navigate)
   }
+
+  const formBtn = classnames({
+    'form-btn': true,
+    'form-btn-dis': disableBtn
+  })
   return (
     <div className="article-wrapper">
       <div className="form-container">
@@ -26,10 +32,13 @@ const SignInForm = () => {
           <div className="form-wrapp">
             <label>Email address</label>
             <input
-              className={`form-input ${errors.email && 'input-error'}`}
+              className={`form-input ${
+                errors.email || (errorServer && 'input-error')
+              }`}
               type="text"
-              autoFocus={true}
+              autoFocus
               placeholder="Email address"
+              onFocus={() => setErrorServer('')}
               {...register('email', {
                 required: 'This field is required!',
                 pattern: {
@@ -44,9 +53,12 @@ const SignInForm = () => {
           <div className="form-wrapp">
             <label>Password</label>
             <input
-              className={`form-input ${errors.password && 'input-error'}`}
+              className={`form-input ${
+                errors.password || (errorServer && 'input-error')
+              }`}
               type="password"
               placeholder="Password"
+              onFocus={() => setErrorServer('')}
               {...register('password', {
                 required: true,
                 minLength: {
@@ -61,18 +73,11 @@ const SignInForm = () => {
             />
             <ErrorMessage errors={errors} type={'password'} />
           </div>
-          {errorServer && (
-            <p style={{ color: 'red', marginBottom: '0' }}>
-              Incorrect username or password.
-            </p>
-          )}
+          {errorServer && <p className="error-server">{errorServer}</p>}
           <button
-            className="form-btn"
+            className={formBtn}
             type="submit"
             name="submit"
-            style={
-              disableBtn ? { cursor: 'default', background: '#1f74c3' } : null
-            }
             disabled={disableBtn}
           >
             Login

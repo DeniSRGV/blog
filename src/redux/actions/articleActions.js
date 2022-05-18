@@ -15,6 +15,10 @@ export const favoriteArticle = (payload) => ({
   type: 'FAVORITE_ARTICLE',
   payload
 })
+export const favoriteArticleItem = (payload) => ({
+  type: 'FAVORITE_ARTICLE_ITEM',
+  payload
+})
 
 // getting a list of articles
 export const getArticles = (page) => (dispatch) => {
@@ -48,15 +52,21 @@ export const deleteArticleItem = (slug, token) => (dispatch) => {
   apiService.deleteArticle(slug, token)
   dispatch(loading(false))
 }
-export const favoritesArticle = (token, slug) => (dispatch) => {
+//favorites article
+export const favoritesArticle = (token, slug, artAll) => (dispatch) => {
   const apiService = new ServiceApi()
   apiService.likeArticle(token, slug).then((res) => {
-    dispatch(favoriteArticle(res.article))
+    artAll
+      ? dispatch(favoriteArticle(res.article))
+      : dispatch(favoriteArticleItem(res.article))
   })
 }
-export const unfavoritesArticle = (token, slug) => (dispatch) => {
+// unfavorites article
+export const unfavoritesArticle = (token, slug, artAll) => (dispatch) => {
   const apiService = new ServiceApi()
   apiService.dislikeArticle(token, slug).then((res) => {
-    dispatch(favoriteArticle(res.article))
+    artAll
+      ? dispatch(favoriteArticle(res.article))
+      : dispatch(favoriteArticleItem(res.article))
   })
 }

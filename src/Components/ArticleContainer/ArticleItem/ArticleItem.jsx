@@ -28,19 +28,21 @@ const ArticleItem = () => {
     dispatch(deleteArticleItem(slug, token))
     setTimeout(() => navigate('/articles'), 200)
   }
+
   return (
     <div className="article-wrapper">
       <div className="article-block-items">
         <div className="article-item">
           <div className="article-info">
             <div className="article-title-block">
-              <div className="article-title">
-                <Link to={'/articles/'}>{data.title}</Link>
+              <div className="article-title article-title-item">
+                {data.title}
               </div>
               <Likes
                 favoritesCount={data.favoritesCount}
-                slug={slug}
+                slug={artItem.slug}
                 isLike={data.favorited}
+                artAll={false}
               />
             </div>
             <div className="article-container-tag">
